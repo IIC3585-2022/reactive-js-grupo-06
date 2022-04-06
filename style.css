@@ -52,10 +52,17 @@
   background-size: 30px;
 }
 
-.pac-man {
+.rick {
   width: 30px;
   height: 30px;
   background-image: url('https://img.icons8.com/color/48/000000/rick-sanchez.png');
+  background-size: 30px;
+}
+
+.morty {
+  width: 30px;
+  height: 30px;
+  background-image: url('https://img.icons8.com/plasticine/100/000000/morty-smith.png');
   background-size: 30px;
 }
 
