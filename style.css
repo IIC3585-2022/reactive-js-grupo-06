@@ -1,0 +1,47 @@
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 480px;
+  height: 480px;
+  border: solid black;
+  background-color: black;
+}
+
+.grid div {
+  width: 30px;
+  height: 30px;
+}
+
+.grid div.ghost {
+    display: inline;
+    background-color: white;
+    height: 10px;
+    border-radius: 10px;
+    
+  }
+
+.food-dot {
+  height: 10%;
+  border: 10px solid black;
+  box-sizing: border-box;
+  background-color: red;
+  background-size: 5px 5px;
+}
+
+.wall {
+  background-color: blue;
+}
+
+.super-food {
+  background-color: green;
+  border-radius: 10px;
+}
+
+.pac-man {
+  background-color: yellow;
+  border-radius: 10px;
+}
+
+.scared-ghost {
+  background-color: aquamarine;
+}
