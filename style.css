@@ -1,88 +1,86 @@
-
 .grid {
-  display: flex;
-  flex-wrap: wrap;
-  width: 990px;
-  height: 630px;
-  border: solid black;
-  background-color: black;
+	display: flex;
+	flex-wrap: wrap;
+	width: 990px;
+	height: 630px;
+	border: solid black;
+	background-color: black;
 }
 
 .grid div {
-  width: 30px;
-  height: 30px;
+	width: 30px;
+	height: 30px;
 }
 
 .ghost {
-    background-image: url('https://img.icons8.com/color/48/000000/bill-cipher.png');
-    background-size: 30px;
-    border-radius: 10px;
-  }
+	background-image: url("https://img.icons8.com/color/48/000000/bill-cipher.png");
+	background-size: 30px;
+	border-radius: 10px;
+}
 
 .food-dot.ghost {
-  background-image: url('https://img.icons8.com/color/48/000000/bill-cipher.png');
-  background-size: 30px;
-  border-radius: 10px;
-  border: 0px solid black;
-  background-color: rgba(0,0,0,0.5);;
+	background-image: url("https://img.icons8.com/color/48/000000/bill-cipher.png");
+	background-size: 30px;
+	border-radius: 10px;
+	border: 0px solid black;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .super-food.ghost {
-  background-image: url('https://img.icons8.com/color/48/000000/bill-cipher.png');
-  background-size: 30px;
-  border-radius: 10px;
+	background-image: url("https://img.icons8.com/color/48/000000/bill-cipher.png");
+	background-size: 30px;
+	border-radius: 10px;
 }
 
-
 .food-dot {
-  border: 12px solid black;
-  border-radius: 30px;
-  box-sizing: border-box;
-  background-color: #DEA185;
+	border: 12px solid black;
+	border-radius: 30px;
+	box-sizing: border-box;
+	background-color: #dea185;
 }
 
 .wall {
-  background-color: #2121DE;
-  border-radius: 1px;
+	background-color: #2121de;
+	border-radius: 1px;
 }
 
-.super-food {
-  background-image: url('https://img.icons8.com/emoji/48/000000/cucumber-emoji.png');
-  border-radius: 10px;
-  background-size: 30px;
+.power-up {
+	background-image: url("https://img.icons8.com/emoji/48/000000/cucumber-emoji.png");
+	border-radius: 10px;
+	background-size: 30px;
 }
 
 .rick {
-  width: 30px;
-  height: 30px;
-  background-image: url('https://img.icons8.com/color/48/000000/rick-sanchez.png');
-  background-size: 30px;
+	width: 30px;
+	height: 30px;
+	background-image: url("https://img.icons8.com/color/48/000000/rick-sanchez.png");
+	background-size: 30px;
 }
 
 .morty {
-  width: 30px;
-  height: 30px;
-  background-image: url('https://img.icons8.com/plasticine/100/000000/morty-smith.png');
-  background-size: 30px;
+	width: 30px;
+	height: 30px;
+	background-image: url("https://img.icons8.com/plasticine/100/000000/morty-smith.png");
+	background-size: 30px;
 }
 
 .scared-ghost {
-  background-image: url('https://img.icons8.com/color-glass/48/000000/bill-cipher.png');
-  background-size: 30px;
+	background-image: url("https://img.icons8.com/color-glass/48/000000/bill-cipher.png");
+	background-size: 30px;
 }
 
 .food-dot.scared-ghost {
-  background-color: rgba(0,0,0,0.5);
-  background-image: url('https://img.icons8.com/color-glass/48/000000/bill-cipher.png');
-  background-size: 30px;
-  border-radius: 10px;
-  border: 0px solid rgba(0,0,0,0.5);
+	background-color: rgba(0, 0, 0, 0.5);
+	background-image: url("https://img.icons8.com/color-glass/48/000000/bill-cipher.png");
+	background-size: 30px;
+	border-radius: 10px;
+	border: 0px solid rgba(0, 0, 0, 0.5);
 }
 
 .super-food.scared-ghost {
-  background-color: rgba(0,0,0,0.5);
-  background-image: url('https://img.icons8.com/color-glass/48/000000/bill-cipher.png');
-  background-size: 30px;
-  border-radius: 10px;
-  border: 0px solid rgba(0,0,0,0.5);
+	background-color: rgba(0, 0, 0, 0.5);
+	background-image: url("https://img.icons8.com/color-glass/48/000000/bill-cipher.png");
+	background-size: 30px;
+	border-radius: 10px;
+	border: 0px solid rgba(0, 0, 0, 0.5);
 }
