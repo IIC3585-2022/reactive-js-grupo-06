@@ -32,6 +32,12 @@
 	border-radius: 10px;
 }
 
+.power-up.ghost {
+	background-image: url("https://img.icons8.com/color/48/000000/bill-cipher.png");
+	background-size: 30px;
+	border-radius: 10px;
+}
+
 .food-dot {
 	border: 12px solid black;
 	border-radius: 30px;
@@ -78,6 +84,14 @@
 }
 
 .super-food.scared-ghost {
+	background-color: rgba(0, 0, 0, 0.5);
+	background-image: url("https://img.icons8.com/color-glass/48/000000/bill-cipher.png");
+	background-size: 30px;
+	border-radius: 10px;
+	border: 0px solid rgba(0, 0, 0, 0.5);
+}
+
+.power-up.scared-ghost {
 	background-color: rgba(0, 0, 0, 0.5);
 	background-image: url("https://img.icons8.com/color-glass/48/000000/bill-cipher.png");
 	background-size: 30px;
