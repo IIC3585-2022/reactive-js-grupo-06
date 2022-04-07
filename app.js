@@ -1,11 +1,4 @@
-const {
-	fromEvent,
-	scan,
-	Observable,
-	throttleTime,
-	timer,
-	startWith,
-} = require("rxjs");
+const { fromEvent } = require("rxjs");
 
 fromEvent(document, "DOMContentLoaded").subscribe(() => {
 	const scoreDisplay = document.getElementById("score");
@@ -104,7 +97,7 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 	max_points = 0;
 
 	//Arreglar esto sí o sí
-	const squares = [
+	let squares = [
 		[],
 		[],
 		[],
@@ -265,12 +258,12 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 			removeFromSquare(morty);
 			if (
 				!(
-					rick.y === 7 &&
-					(rick.x === 14 ||
-						rick.x === 15 ||
-						rick.x === 16 ||
-						rick.x === 17 ||
-						rick.x === 18)
+					morty.y === 7 &&
+					(morty.x === 14 ||
+						morty.x === 15 ||
+						morty.x === 16 ||
+						morty.x === 17 ||
+						morty.x === 18)
 				) &&
 				morty.y < height &&
 				!squares[morty.y + 1][morty.x].classList.contains("wall")
@@ -281,6 +274,7 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 		}
 
 		foodEaten();
+		eatGhost();
 		powerUpEaten();
 		checkLose();
 		checkWin();
@@ -314,10 +308,10 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 	}
 
 	const ghostArray = [
-		new Ghost(10, 14, 500),
-		new Ghost(10, 15, 1200),
-		new Ghost(10, 16, 1800),
-		new Ghost(10, 17, 4000),
+		new Ghost(10, 14, 175),
+		new Ghost(10, 15, 150),
+		new Ghost(10, 16, 125),
+		new Ghost(10, 17, 200),
 	];
 
 	ghostArray.forEach((ghost) =>
@@ -325,6 +319,9 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 	);
 
 	function validGhostSquare(square) {
+		//Este es en caso de estar en un extremo que no analize una casilla que no existe
+		if (!square) return true;
+
 		if (square.classList.contains("wall") || square.classList.contains("ghost"))
 			return false;
 		return true;
@@ -347,19 +344,29 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 	function moveGhost(ghost) {
 		removeFromSquare(ghost);
 
-		if (ghost.direction === "up") {
+		if (ghost.current_direction === "up") {
 			ghost.y -= 1;
 			addToSquare(ghost);
-		} else if (ghost.direction === "down") {
+		} else if (ghost.current_direction === "down") {
 			ghost.y += 1;
 			addToSquare(ghost);
-		} else if (ghost.direction === "right") {
-			ghost.x += 1;
+		} else if (ghost.current_direction === "right") {
+			if (ghost.x === 32) {
+				ghost.x = 0;
+			} else {
+				ghost.x += 1;
+			}
 			addToSquare(ghost);
-		} else if (ghost.direction === "left") {
-			ghost.x -= 1;
+		} else if (ghost.current_direction === "left") {
+			if (ghost.x === 0) {
+				ghost.x = 32;
+			} else {
+				ghost.x -= 1;
+			}
 			addToSquare(ghost);
 		}
+		checkLose();
+		eatGhost();
 		/* 
 		if (ghost.scared) {
 			squares[ghost.y][ghost.x].classList.add("scared-ghost");
@@ -372,15 +379,16 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 		ghost.timerId = setInterval(function () {
 			const valid_moves = validGhostMoves(ghost);
 
-			//Esto es pa que el fantasma pueda escapar, si tiene 4 valid moves significa que está ens pawn
-			if (valid_moves.includes(ghost.direction) && valid_moves.length != 4) {
-				moveGhost(ghost, ghost.direction);
-			} else {
+			//Esto es pa que el fantasma pueda escapar, si tiene 4 valid moves significa que está en spawn
+			if (
+				valid_moves.length === 3 ||
+				!valid_moves.includes(ghost.current_direction)
+			) {
 				direction = valid_moves[Math.floor(Math.random() * valid_moves.length)];
-				ghost.direction = direction;
+				ghost.current_direction = direction;
 
 				ghost = moveGhost(ghost);
-			}
+			} else moveGhost(ghost);
 		}, ghost.speed);
 	}
 
@@ -425,10 +433,8 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 	}
 
 	function checkWin() {
-		console.log(score);
-		console.log(max_points);
-		if (score === max_points) {
-			console.log("you win");
+		if (score >= max_points) {
+			alert(`¡Han ganado! Su puntaje total es de: ${score}`);
 		}
 	}
 
@@ -450,11 +456,32 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 			lost = true;
 
 		if (lost) {
-			console.log("PERDISTE");
 			clearTimeout(timer);
 			setTimeout(function () {
-				alert("You have Lost!");
+				alert(`¡Han perdido! Su puntaje total es de: ${score}`);
 			}, 5);
 		}
+	}
+
+	function eatGhost() {
+		rick_square = squares[rick.y][rick.x];
+		morty_square = squares[morty.y][morty.x];
+
+		ghostArray.forEach((ghost) => {
+			if (ghost.scared) {
+				if (
+					(ghost.y === rick.y && ghost.x === rick.x) ||
+					(ghost.y === morty.y && ghost.x === morty.x)
+				) {
+					squares[ghost.y][ghost.x].classList.remove("ghost");
+					squares[ghost.y][ghost.x].classList.remove("scared-ghost");
+					ghost.scared = false;
+					ghost.current_direction = "up";
+					ghost.y = ghost.initY;
+					ghost.x = ghost.initX;
+					addToSquare(ghost);
+				}
+			}
+		});
 	}
 });
