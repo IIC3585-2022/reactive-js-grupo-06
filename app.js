@@ -1,4 +1,4 @@
-const { fromEvent } = require("rxjs");
+const { fromEvent, of } = require("rxjs");
 
 fromEvent(document, "DOMContentLoaded").subscribe(() => {
 	const scoreDisplay = document.getElementById("score");
@@ -96,55 +96,25 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 
 	max_points = 0;
 
-	//Arreglar esto sí o sí
-	let squares = [
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-		[],
-	];
-
-	function createBoard() {
-		for (let i = 0; i < height; i++) {
-			for (let j = 0; j < width; j++) {
-				const square = document.createElement("div");
-				grid.appendChild(square);
-				squares[i].push(square);
-
-				//add layout to the board
-				if (layout[i][j] === 0) {
-					squares[i][j].classList.add("food-dot");
-					max_points += 1;
-				} else if (layout[i][j] === 1) {
-					squares[i][j].classList.add("wall");
-				} else if (layout[i][j] === 2) {
-					squares[i][j].classList.add("spawn");
-				} else if (layout[i][j] === 3) {
-					squares[i][j].classList.add("power-up");
-					max_points += 20;
-				}
+	//Crea el tablero
+	const squares = layout.map((row, i, a) => {
+		return row.map((value, index, array) => {
+			const square = document.createElement("div");
+			grid.appendChild(square);
+			if (value === 0) {
+				square.classList.add("food-dot");
+				max_points += 1;
+			} else if (value === 1) {
+				square.classList.add("wall");
+			} else if (value === 2) {
+				square.classList.add("spawn");
+			} else if (value === 3) {
+				square.classList.add("power-up");
+				max_points += 20;
 			}
-		}
-	}
-
-	createBoard();
+			return square;
+		});
+	});
 
 	class Pacman {
 		constructor(name, initY, initX) {
@@ -173,7 +143,7 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 	}
 
 	//Aquí se mueven los personajes
-	fromEvent(document, "keydown").subscribe((key) => {
+	keyMovement = fromEvent(document, "keydown").subscribe((key) => {
 		if (key.code === "KeyA") {
 			removeFromSquare(rick);
 			if (rick.x === 0) {
@@ -392,7 +362,7 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 		}, ghost.speed);
 	}
 
-	ghostArray.forEach((ghost) => movingGhost(ghost));
+	of(...ghostArray).subscribe((next) => movingGhost(next));
 
 	function scaredGhost(ghost) {
 		ghost.scared = true;
@@ -456,6 +426,7 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 			lost = true;
 
 		if (lost) {
+			keyMovement.unsubscribe();
 			clearTimeout(timer);
 			setTimeout(function () {
 				alert(`¡Han perdido! Su puntaje total es de: ${score}`);
