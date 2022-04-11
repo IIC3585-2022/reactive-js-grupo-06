@@ -4,12 +4,15 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "browserify app.js -o bundle.js"
+    "build": "browserify app.js -p esmify > bundle.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "browserify": "^17.0.0",
     "rxjs": "^7.5.5"
+  },
+  "devDependencies": {
+    "esmify": "^2.1.1"
   }
 }
