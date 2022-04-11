@@ -195,7 +195,16 @@ export function eatGhost(map, ghostArray, rick, morty) {
 
 export function checkWin(map, score) {
 	if (score >= map.max_points) {
-		alert(`¡Han ganado!`);
+		keyMovement.unsubscribe();
+		clearTimeout(timer);
+
+		map.squares[rick.y][rick.x].classList.remove("rick");
+		map.squares[morty.y][morty.x].classList.remove("morty");
+		rick.y = 0;
+		morty.y = 20;
+		setTimeout(function () {
+			alert(`¡Han ganado!`);
+		}, 5);
 	}
 }
 
