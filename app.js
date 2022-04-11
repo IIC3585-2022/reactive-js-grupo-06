@@ -141,8 +141,9 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 			ghostArray,
 			timer
 		);
-		checkLose(map, keyMovement, timer, rick, morty, score);
+		checkLose(map, keyMovement, timer, rick, morty);
 		checkWin(map, score);
+		
 	});
 
 	const ghostArray = addGhosts(map);

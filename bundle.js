@@ -100,7 +100,7 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
     score = (0, _display.foodEaten)(map, rick, morty, score, scoreDisplay);
     (0, _game.eatGhost)(map, ghostArray, rick, morty);
     score = (0, _game.powerUpEaten)(map, rick, morty, score, scoreDisplay, ghostArray, timer);
-    (0, _game.checkLose)(map, keyMovement, timer, rick, morty, score);
+    (0, _game.checkLose)(map, keyMovement, timer, rick, morty);
     (0, _game.checkWin)(map, score);
   });
   const ghostArray = (0, _display.addGhosts)(map);
@@ -11380,8 +11380,8 @@ var _game = require("./game");
 function createMap(document, grid) {
   var max_points = 0;
 
-  const squares = _constants.layout.map((row, i, a) => {
-    return row.map((value, index, array) => {
+  const squares = _constants.layout.map(row => {
+    return row.map(value => {
       const square = document.createElement("div");
       grid.appendChild(square);
 

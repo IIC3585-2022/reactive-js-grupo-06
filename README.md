@@ -6,9 +6,11 @@ Descripción
 
 En terminal:
 
-npm install
-npm run build
-open index.html
+```npm install```
+
+```npm run build```
+
+```open index.html```
 
 Reglas:
 
