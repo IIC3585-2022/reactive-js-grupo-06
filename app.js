@@ -1,16 +1,19 @@
 const { fromEvent, of } = require("rxjs");
-import { createMap, 
-		 removeFromSquare,
-		 addToSquare,
-		 foodEaten,
-		 addGhosts,
-		 } from "./src/display.js";
-import { Pacman,
-		 movingGhost, 
-		 powerUpEaten,
-		 eatGhost,
-		 checkWin,
-		 checkLose } from "./src/game.js";
+import {
+	createMap,
+	removeFromSquare,
+	addToSquare,
+	foodEaten,
+	addGhosts,
+} from "./src/display.js";
+import {
+	Pacman,
+	movingGhost,
+	powerUpEaten,
+	eatGhost,
+	checkWin,
+	checkLose,
+} from "./src/game.js";
 
 fromEvent(document, "DOMContentLoaded").subscribe(() => {
 	const scoreDisplay = document.getElementById("score");
@@ -19,7 +22,6 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 	let score = 0;
 	const grid = document.querySelector(".grid");
 	const map = createMap(document, grid);
-
 
 	const morty = new Pacman("morty", 15, 22);
 	const rick = new Pacman("rick", 15, 10);
@@ -128,9 +130,17 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 			addToSquare(map, morty);
 		}
 
-		score = foodEaten(map, rick, morty, score, scoreDisplay );
+		score = foodEaten(map, rick, morty, score, scoreDisplay);
 		eatGhost(map, ghostArray, rick, morty);
-		score = powerUpEaten(map, rick, morty, score, scoreDisplay, ghostArray, timer);
+		score = powerUpEaten(
+			map,
+			rick,
+			morty,
+			score,
+			scoreDisplay,
+			ghostArray,
+			timer
+		);
 		checkLose(map, keyMovement, timer, rick, morty, score);
 		checkWin(map, score);
 	});
@@ -139,7 +149,18 @@ fromEvent(document, "DOMContentLoaded").subscribe(() => {
 
 	let timer;
 
-	of(...ghostArray).subscribe((next) => movingGhost(map, next, checkLose, eatGhost, ghostArray, rick, morty, keyMovement, timer, score));
-
-	
+	of(...ghostArray).subscribe((next) =>
+		movingGhost(
+			map,
+			next,
+			checkLose,
+			eatGhost,
+			ghostArray,
+			rick,
+			morty,
+			keyMovement,
+			timer,
+			score
+		)
+	);
 });

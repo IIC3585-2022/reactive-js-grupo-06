@@ -11536,9 +11536,9 @@ function moveGhost(map, ghost, checkLose, eatGhost, ghostArray, rick, morty, key
   checkLose(map, keyMovement, timer, rick, morty, score);
   eatGhost(map, ghostArray, rick, morty);
   /* 
-  if (ghost.scared) {
-      map.squares[ghost.y][ghost.x].classList.add("scared-ghost");
-  } */
+     if (ghost.scared) {
+         map.squares[ghost.y][ghost.x].classList.add("scared-ghost");
+     } */
 
   return ghost;
 }
@@ -11611,11 +11611,11 @@ function eatGhost(map, ghostArray, rick, morty) {
 
 function checkWin(map, score) {
   if (score >= map.max_points) {
-    alert(`¡Han ganado! Su puntaje total es de: ${score}`);
+    alert(`¡Han ganado!`);
   }
 }
 
-function checkLose(map, keyMovement, timer, rick, morty, score) {
+function checkLose(map, keyMovement, timer, rick, morty) {
   var lost = false;
   const rick_square = map.squares[rick.y][rick.x];
   const morty_square = map.squares[morty.y][morty.x];
@@ -11626,8 +11626,12 @@ function checkLose(map, keyMovement, timer, rick, morty, score) {
   if (lost) {
     keyMovement.unsubscribe();
     clearTimeout(timer);
+    map.squares[rick.y][rick.x].classList.remove("rick");
+    map.squares[morty.y][morty.x].classList.remove("morty");
+    rick.y = 0;
+    morty.y = 20;
     setTimeout(function () {
-      alert(`¡Han perdido! Su puntaje total es de: ${score}`);
+      alert(`¡Han perdido!`);
     }, 5);
   }
 }
